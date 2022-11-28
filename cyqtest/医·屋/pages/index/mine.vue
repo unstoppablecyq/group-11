@@ -5,7 +5,7 @@
 		</view> -->
 		<view class="header">
 			<image class="head-img" @click="gotologin()" mode="aspectFit" src="../../static/head.png"/>
-			<text class="nickname" >{{mine.username}}</text>
+			<text class="nickname" @click="changeinfo()">{{mine.User_Name}}</text>
 		</view>
 		<view class="menus">
 
@@ -33,36 +33,41 @@
 				mine:{}
 			}
 		},
-	// 	onShow() {
- //      this.mine = getUser();
- //      // if(!this.mine){
- //      //   uni.navigateTo({
- //      //     url:"../index/login"
- //      //   })
- //      //   return;
- //      // }
-	// 		// uni.showShareMenu({
-	// 		// 	withShareTicket: true,
-	// 		// 	menus:["shareAppMessage","shareTimeline"]
-	// 		// })
-	// 	},
-	// 	created(){
+		onShow() {
+      this.mine = getUser();
+      if(!this.mine){
+        uni.navigateTo({
+          url:"../index/login"
+        })
+        return;
+      }
+		uni.showShareMenu({
+			withShareTicket: true,
+			menus:["shareAppMessage","shareTimeline"]
+			})
+		},
+		created(){
 			
-	// 	},
+		},
 		methods: {
-			gotologin(){
-				uni.switchTab({
-					url:"/pages/index/login"
+		gotologin(){
+			uni.switchTab({
+				url:"/pages/index/login"
 				})
 			},
-      gotoOrder(){
-        uni.switchTab({
-        	url:"./orderlist"
-        })
-      },
-			gotoSetting(){
-				uni.navigateTo({
-					url:"./setting"
+		gotoOrder(){
+			uni.switchTab({
+				url:"./orderlist"
+				})
+			},
+		gotoSetting(){
+			uni.navigateTo({
+				url:"./setting"
+				})
+			},
+		changeinfo(){
+			uni.navigateTo({
+				url:"/pages/index/change"
 				})
 			}
 		}

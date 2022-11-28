@@ -4,8 +4,8 @@
       <view class="item" :title="item.title" :clickable="true" @click="clickItem(item)" v-for="(item,i) in list">
         <view class="title"><text>{{item.place_depart}}~{{item.place_arrive}}</text></view>
         <view class="tail">
-          <text class="teacher">发货时间:{{item.sendTime}}</text>
-          <text class="time">收货时间:{{item.toTime}}</text>
+          <text class="teacher">下单时间:{{item.sendTime}}</text>
+          <text class="time">治疗时间:{{item.toTime}}</text>
           <text class="time">总价:{{item.price}}</text>
         </view>
         <view class="tail" style="justify-content: flex-end;flex-direction: row;">

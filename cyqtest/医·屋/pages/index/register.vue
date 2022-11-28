@@ -69,7 +69,7 @@
         }
         if (!this.PassWord) {
           uni.showToast({
-            title: "请输入验证码",
+            title: "请输入密码",
             icon: "none"
           });
           return;
