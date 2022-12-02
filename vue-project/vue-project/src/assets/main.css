@@ -1,0 +1,42 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+.div{
+	display: block;
+}
+li{
+    list-style: none;
+    list-style-type: none;
+    list-style-position: initial;
+    list-style-image: initial;
+    display: list-item;
+    text-align: center;
+}
+a{
+    display: block;
+    color: #808080;
+    text-decoration: none;
+}
+body{
+    min-height: 100%;
+    font-size: 18px;
+}
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+li a{
+    display: block;
+    width: 140px;
+}
+li a:hover{
+    background-color: #555;
+    color: white;
+}
+h1,h2,h3,h4,h5{
+    font-weight: normal;
+}
+
+
