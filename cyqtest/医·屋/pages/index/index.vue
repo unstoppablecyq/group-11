@@ -68,8 +68,8 @@
       },
       qujian(item) {
         console.log("item===", item);
-        uni.navigateTo({
-          url: "/pages/index/chaxun"
+        uni.switchTab({
+          url: "/pages/index/orderlist"
         });
       },
       

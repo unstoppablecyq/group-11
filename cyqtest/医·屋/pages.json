@@ -97,15 +97,7 @@
             }
             
         }
-        ,{
-            "path" : "pages/index/changeinfo",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
+ 
     ],
 	"tabBar": {
 	  "color": "#000000",
