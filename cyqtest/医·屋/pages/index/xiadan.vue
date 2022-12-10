@@ -2,33 +2,33 @@
   <view class="uni-container">
     <uni-forms ref="form" labelWidth="100" :value="formData" validate-trigger="submit" err-show-type="toast">
 
-      <uni-forms-item name="username" label="发货驿站">
-        <uni-data-picker :localdata="froms" v-model="formData.place_depart" popup-title="请选择发货驿站" @change="onchange"
+<!--      <uni-forms-item name="username" label="发货驿站">
+        <uni-data-picker :localdata="froms" v-model="formData.place_depart"  @change="onchange"
           @nodeclick="onnodeclick">
         </uni-data-picker>
-      </uni-forms-item>
-      <uni-forms-item name="password" label="取货驿站">
-        <uni-data-picker :localdata="tos" v-model="formData.place_arrive" popup-title="请选择取货驿站" @change="onchangeTo"
+      </uni-forms-item> -->
+<!--      <uni-forms-item name="password" label="取货驿站">
+        <uni-data-picker :localdata="tos" v-model="formData.place_arrive"  @change="onchangeTo"
           @nodeclick="onnodeclick">
         </uni-data-picker>
-      </uni-forms-item>
-      <uni-forms-item name="type" label="货品类型">
-        <uni-data-picker :localdata="types" v-model="formData.type" popup-title="请选择货品类型" @nodeclick="onnodeclick">
+      </uni-forms-item> -->
+      <uni-forms-item name="type" label="就诊类型">
+        <uni-data-picker :localdata="types" v-model="formData.type"  @nodeclick="onnodeclick">
         </uni-data-picker>
       </uni-forms-item>
-      <uni-forms-item name="no" label="货物重量">
-        <uni-data-picker :localdata="weights" v-model="formData.weight" popup-title="请选择货物重量" @nodeclick="onnodeclick">
+<!--      <uni-forms-item name="no" label="货物重量">
+        <uni-data-picker :localdata="weights" v-model="formData.weight"  @nodeclick="onnodeclick">
         </uni-data-picker>
-      </uni-forms-item>
-      <uni-forms-item name="class" label="投递时间">
-        <uni-data-picker :localdata="sendTimes" v-model="formData.sendTime" popup-title="请选择送货日期"
+      </uni-forms-item> -->
+      <uni-forms-item name="class" label="就诊时间">
+        <uni-data-picker :localdata="sendTimes" v-model="formData.sendTime" 
           @change="onchangeSendTime" @nodeclick="onnodeclick">
         </uni-data-picker>
       </uni-forms-item>
-      <uni-forms-item name="class" label="取货时间">
-        <uni-data-picker :localdata="toTimes" v-model="formData.toTime" popup-title="请选择取货日期">
+<!--      <uni-forms-item name="class" label="取货时间">
+        <uni-data-picker :localdata="toTimes" v-model="formData.toTime" >
         </uni-data-picker>
-      </uni-forms-item>
+      </uni-forms-item> -->
     </uni-forms>
     <!-- <button style="width: 100px;" class="uni-button" @click="showDrawer('showRight')">+题目</button> -->
     <view class="bottom">
@@ -57,294 +57,105 @@
 </template>
 
 <script>
-  // const db = uniCloud.database();
-  // const dbCollectionName = 'uni';
-  // import * as utils from "@/utils/utils.js";
-  // export default {
-  //   data() {
-  //     return {
-  //       formData: {
-  //         "place_depart": "",
-  //         "place_arrive": "",
-  //         "weight": "",
-  //         "type": "",
-  //         "sendTime": "",
-  //         "toTime": ""
-  //       },
-  //       froms: [],
-  //       list: [],
-  //       tos: [],
-  //       types: [{
-  //         text: "普通日用品",
-  //         value: "1",
-  //       }, {
-  //         text: "特殊物流",
-  //         value: "2",
-  //       }],
-  //       weights: [{
-  //         text: "1kg",
-  //         value: "1",
-  //       }, {
-  //         text: "2kg",
-  //         value: "2",
-  //       }, {
-  //         text: "3kg",
-  //         value: "3",
-  //       }, {
-  //         text: "4kg",
-  //         value: "4",
-  //       }, {
-  //         text: "5kg",
-  //         value: "5",
-  //       }, {
-  //         text: "6kg",
-  //         value: "6",
-  //       }],
-  //       sendTimes: [],
-  //       toTimes: [],
-  //       selectLine: null,
-  //       sendTimeObj:null,
-  //     }
-  //   },
-  //   computed: {
-  //     totalPrice: function() {
-  //       if (this.selectLine && this.formData.weight) {
-  //         return this.selectLine.price * this.formData.weight;
-  //       }
-  //       return 0;
-  //     }
-  //   },
-  //   onReady() {},
-  //   onLoad() {
-  //     this.loadData();
-
-  //   },
-  //   methods: {
-  //     async loadData() {
-  //       const db = uniCloud.database() //代码块为cdb
-  //       let findres = await db.collection("based-price").where({}).get()
-
-  //       this.list = findres.result.data;
-  //       let keys = {};
-  //       this.list.map(item => item.place_depart).forEach((item) => {
-  //         keys[item] = 0;
-  //       });
-
-  //       this.froms = Object.keys(keys).map((item) => {
-  //         return {
-  //           text: item,
-  //           value: item
-  //         }
-  //       })
-  //     },
-  //     onnodeclick(value) {
+  import {saveUser,getUser} from '@/utils/storage.js';
+  const db = uniCloud.database();
+  const dbCollectionName = 'uni';
+  import * as utils from "@/utils/utils.js";
+  export default {
+    data() {
+      return {
+        formData: {
+          "place_depart": "",
+          "place_arrive": "",
+          "weight": "",
+          "type": "",
+          "sendTime": "",
+          "toTime": ""
+        },
+        froms: [],
+        list: [],
+        tos: [],
+        types: [{
+          text: "视力",
+          value: "1",
+        }, {
+          text: "血压",
+          value: "2",
+        },{
+          text: "核酸",
+          value: "3",
+        }],
         
-  //     },
-      
-  //     onchange(value) {
-  //       console.log("value2222===", value);
+        sendTimes: [
+			{
+			  text: "8:00",
+			  value: "8",
+			},
+			{
+			  text: "12:00",
+			  value: "12",
+			},
+			{
+			  text: "16:00",
+			  value: "16",
+			}
+		],
+        toTimes: [],
+        selectLine: null,
+        sendTimeObj:null,
+      }
+    },
 
-  //       let keys = {};
-  //       let vs = this.list.filter(item => item.place_depart === value.detail.value[0].text);
-  //       console.log("vs===", vs, value.detail.value.text);
+    methods: {
 
-  //       vs.forEach((item) => {
-  //         keys[item.place_arrive] = 0;
-  //       });
+      },
 
 
-  //       this.tos = Object.keys(keys).map((item) => {
-  //         return {
-  //           text: item,
-  //           value: item
-  //         }
-  //       })
+      async submitForm(value) {
 
-  //     },
 
-  //     onchangeTo(value) {
-  //       this.selectLine = this.list.find(item => item.place_depart === this.formData.place_depart && item
-  //         .place_arrive === value.detail.value[0].text);
+        if (!this.formData.type) {
+          uni.showToast({
+            title: "请选择就诊类型",
+            icon: "none"
+          });
+          return;
+        }
 
-  //       let time = this.selectLine.time;
-  //       let now = utils.formatDate(new Date(), "HH:mm");
-        
-  //       this.sendTimes = time.filter((item) => {
-  //         let t = Object.keys(item)[0];
-  //         if(t=="weight"){
-  //           t = Object.keys(item)[1];
-  //         }
-  //         let secondsT = t.split(":")[0]*60+t.split(":")[1]*1;
-  //         let secondsNow = now.split(":")[0]*60+now.split(":")[1]*1;
-          
-  //         console.log("now===", secondsT, secondsNow);
-          
-  //         return secondsT > secondsNow;
-  //       }).map(it => {
-  //         let t = Object.keys(it)[0];
-  //         if(t=="weight"){
-  //           t = Object.keys(it)[1];
-  //         }
-  //         return {
-  //           text: t,
-  //           value: t
-  //         }
-  //       })
+        if (!this.formData.toTime) {
+          uni.showToast({
+            title: "请选择取货日期",
+            icon: "none"
+          });
+          return;
+        }
 
-  //       console.log("this.selectLine===", this.selectLine, this.sendTimes);
 
-  //       // this.sendTimes = time.map(it => ({
-  //       //   text: Object.keys(it)[0],
-  //       //   value: Object.keys(it)[0]
-  //       // }))
-  //     },
+        let params = {
 
-  //     async onchangeSendTime(value) {
-  //       let t = value.detail.value[0].text;
+		  Patient_id:this.User_Name.id,
+	      Doctor_id:"",
+          Date: this.formData.type,
+		  DiagnosticStatus:0,
+		  AuditStatus:false         
 
-  //       let find = this.selectLine.time.find(it => {
-  //         return Object.keys(it)[0] === t || Object.keys(it)[1] === t
-  //       });
-  //       this.toTimes = find[t].map(it => ({
-  //         text: it,
-  //         value: it
-  //       }));
-  //       let totalWeight = await this.getTotalWeight(t);
-  //       console.log("totalWeight",totalWeight,find);
-  //       this.sendTimeObj = find;
-  //       if(totalWeight>=find.weight){
-  //         uni.showToast({
-  //           title:"当前时间快递已满,请换其他时间段",
-  //           icon:"none"
-  //         })
-  //         this.formData.sendTime = "";
-  //       }
-        
-  //     },
-      
-  //     // 获取已经寄件的订单重量
-  //     async getTotalWeight(time){
-  //       const db = uniCloud.database() //代码块为cdb
-  //       let findres = await db.collection("dingdan").where({
-  //         "place_depart":this.formData.place_depart,
-  //         "place_arrive":this.formData.place_arrive,
-  //         "sendTime":time
-  //       }).get()
-  //       console.log("getTotalWeight",findres.result.data,time);
-        
-  //       let totalWeight = findres.result.data.reduce((total, item) => {
-  //         return total + item.weight
-  //       }, 0);
-  //       return totalWeight;
-  //     },
+        };
 
-  //     /**
-  //      * 验证表单并提交
-  //      */
-  //     submit() {
-  //       uni.showLoading({
-  //         mask: true
-  //       })
-  //       this.$refs.form.validate().then((res) => {
-  //         return this.submitForm(res)
-  //       }).catch(() => {}).finally(() => {
-  //         uni.hideLoading()
-  //       })
-  //     },
-
-  //     /**
-  //      * 提交表单
-  //      */
-  //     async submitForm(value) {
-  //       if (!this.formData.place_depart) {
-  //         uni.showToast({
-  //           title: "请输入发货驿站",
-  //           icon: "none"
-  //         });
-  //         return;
-  //       }
-  //       if (!this.formData.place_arrive) {
-  //         uni.showToast({
-  //           title: "请输入取货驿站",
-  //           icon: "none"
-  //         });
-  //         return;
-  //       }
-
-  //       if (!this.formData.type) {
-  //         uni.showToast({
-  //           title: "请选择货品类型",
-  //           icon: "none"
-  //         });
-  //         return;
-  //       }
-  //       if (!this.formData.weight) {
-  //         uni.showToast({
-  //           title: "请选择货物类型",
-  //           icon: "none"
-  //         });
-  //         return;
-  //       }
-  //       if (!this.formData.sendTime) {
-  //         uni.showToast({
-  //           title: "请选择送货日期",
-  //           icon: "none"
-  //         });
-  //         return;
-  //       }
-  //       if (!this.formData.toTime) {
-  //         uni.showToast({
-  //           title: "请选择取货日期",
-  //           icon: "none"
-  //         });
-  //         return;
-  //       }
-        
-  //       let totalWeight = await this.getTotalWeight(this.formData.sendTime);
-        
-  //       if((totalWeight)>=this.sendTimeObj.weight){
-  //         uni.showToast({
-  //           title:"当前时间快递已满,请换其他时间段",
-  //           icon:"none"
-  //         })
-  //         this.formData.sendTime = "";
-  //         return;
-  //       }else if((totalWeight+this.formData.weight)>this.sendTimeObj.weight){
-  //         uni.showToast({
-  //           title:"请减少快递重量,或者请换其他时间段",
-  //           icon:"none"
-  //         })
-  //         return;
-  //       }
-        
-        
-
-  //       let params = {
-  //         place_depart: this.formData.place_depart,
-  //         place_arrive: this.formData.place_arrive,
-  //         type: this.formData.type,
-  //         weight: parseInt(this.formData.weight),
-  //         sendTime: this.formData.sendTime,
-  //         toTime: this.formData.toTime,
-  //         price: this.totalPrice,
-  //         createtime: utils.formatDate(new Date(),"yyyy-MM-dd HH:mm:ss")
-  //       };
-
-  //       // 使用 clientDB 提交数据
-  //       return db.collection("dingdan").add(params).then((res) => {
-  //         uni.showToast({
-  //           icon: 'none',
-  //           title: '寄件成功'
-  //         })
-  //       }).catch((err) => {
-  //         uni.showModal({
-  //           content: err.message || '请求服务失败',
-  //           showCancel: false
-  //         })
-  //       })
-  //     }
-  //   }
-  // }
+        // 使用 clientDB 提交数据
+        return db.collection("order").add(params).then((res) => {
+          uni.showToast({
+            icon: 'none',
+            title: '寄件成功'
+          })
+        }).catch((err) => {
+          uni.showModal({
+            content: err.message || '请求服务失败',
+            showCancel: false
+          })
+        })
+      }
+    }
+  
 </script>
 
 <style lang="less">
