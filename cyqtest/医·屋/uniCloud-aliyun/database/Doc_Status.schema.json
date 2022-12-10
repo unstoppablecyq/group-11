@@ -1,0 +1,39 @@
+{
+	"bsonType": "object",
+	"required": [],
+	"permission": {
+		//required:
+		"read": true,
+		"create": true,
+		"update": true,
+		"delete": true
+	},
+	"properties": {
+		"_id": {
+			"description": "ID，系统自动生成"
+		},
+		"Doctor_ID": {
+			"bsonType": "string",
+			"description": "医生ID，这里是外键属性",
+			"foreigthKey": "User_Doctor._id"
+		},
+		"Date": {
+			"bsonType": "string",
+			"title": "日期",
+			"description": "日期，非空",
+			"trim": "both"
+		},
+		"List_Number": {
+			"bsonType": "int",
+			"title": "已接单",
+			"description": "医生当日已接单数",
+			"trim": "both"
+		},
+		"State": {
+			"bsonType": "bool",
+			"title": "是否可接单",
+			"description": "医生当日是否可接单",
+			"trim": "both"
+		}
+	}
+}

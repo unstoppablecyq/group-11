@@ -1,0 +1,73 @@
+{
+	"bsonType": "object",
+	"required": [],
+	"permission": {
+		"read": true,
+		"create": true,
+		"update": true,
+		"delete": true
+	},
+	"properties": {
+		"_id": {
+			"description": "ID，系统自动生成"
+		},
+		"User_Name": {
+			"bsonType": "string",
+			"title": "姓名",
+			"description": "姓名，非空",
+			"trim": "both"
+		},
+		"PassWord": {
+			"bsonType": "string",
+			//password？
+			"title": "密码",
+			"description": "密码，使用password的话是加密存储",
+			"trim": "both"
+		},
+		"PhoneNumber": {
+			"bsonType": "string",
+			"title": "联系方式",
+			"description": "联系方式",
+			"pattern": "\\+?[0-9-]{3,20}$",
+			"trim": "both"
+		},
+
+
+		"Sex": {
+			"bsonType": "int",
+			"title": "性别",
+			"description": "用户性别：0 未知 1 男性 2 女性",
+			"defaultValue": 0,
+			"enum": [{
+					"text": "未知",
+					"value": 0
+				},
+				{
+					"text": "男",
+					"value": 1
+				},
+				{
+					"text": "女",
+					"value": 2
+				}
+			]
+
+		},
+
+		"Major": {
+			"bsonType": "string",
+			"title": "专业",
+			"description": "医生专业",
+			"trim": "both"
+		}
+
+	}
+}
+//"Active": {
+//      "bsonType": "bool",
+//      "title": "激活状态",
+//      "description": "账户是否可用",
+//      "trim": "both"
+//    }
+//用户状态，--用int，0 正常 1 禁用 2 注销  
+//医生不需要？
