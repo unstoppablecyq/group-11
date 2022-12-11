@@ -2,40 +2,26 @@
   <view class="uni-container">
     <uni-forms ref="form" labelWidth="100" :value="formData" validate-trigger="submit" err-show-type="toast">
 
-<!--      <uni-forms-item name="username" label="发货驿站">
-        <uni-data-picker :localdata="froms" v-model="formData.place_depart"  @change="onchange"
-          @nodeclick="onnodeclick">
-        </uni-data-picker>
-      </uni-forms-item> -->
-<!--      <uni-forms-item name="password" label="取货驿站">
-        <uni-data-picker :localdata="tos" v-model="formData.place_arrive"  @change="onchangeTo"
-          @nodeclick="onnodeclick">
-        </uni-data-picker>
-      </uni-forms-item> -->
+
       <uni-forms-item name="type" label="就诊类型">
         <uni-data-picker :localdata="types" v-model="formData.type"  @nodeclick="onnodeclick">
         </uni-data-picker>
       </uni-forms-item>
-<!--      <uni-forms-item name="no" label="货物重量">
-        <uni-data-picker :localdata="weights" v-model="formData.weight"  @nodeclick="onnodeclick">
-        </uni-data-picker>
-      </uni-forms-item> -->
+
       <uni-forms-item name="class" label="就诊时间">
         <uni-data-picker :localdata="sendTimes" v-model="formData.sendTime" 
           @change="onchangeSendTime" @nodeclick="onnodeclick">
         </uni-data-picker>
       </uni-forms-item>
-<!--      <uni-forms-item name="class" label="取货时间">
-        <uni-data-picker :localdata="toTimes" v-model="formData.toTime" >
-        </uni-data-picker>
-      </uni-forms-item> -->
+
     </uni-forms>
     <!-- <button style="width: 100px;" class="uni-button" @click="showDrawer('showRight')">+题目</button> -->
     <view class="bottom">
-      <text class="total-price">总价:¥{{totalPrice}}</text>
+      <text class="total-price">总价:¥</text>
+	  <!-- 总价:¥{{totalPrice}} -->
       <button class="button" type="primary" @click="submit">提交</button>
     </view>
-    <uni-drawer ref="showRight" mode="right" :mask-click="true">
+<!--    <uni-drawer ref="showRight" mode="right" :mask-click="true">
       <view class="scroll-view">
         <scroll-view class="scroll-view-box" scroll-y="true">
           <view class="drawers">
@@ -52,29 +38,21 @@
           </view>
         </scroll-view>
       </view>
-    </uni-drawer>
+    </uni-drawer> -->
   </view>
 </template>
 
 <script>
   import {saveUser,getUser} from '@/utils/storage.js';
   const db = uniCloud.database();
-  const dbCollectionName = 'uni';
-  import * as utils from "@/utils/utils.js";
   export default {
     data() {
       return {
         formData: {
-          "place_depart": "",
-          "place_arrive": "",
-          "weight": "",
           "type": "",
-          "sendTime": "",
-          "toTime": ""
+          "sendTime": ""
         },
-        froms: [],
-        list: [],
-        tos: [],
+
         types: [{
           text: "视力",
           value: "1",
@@ -100,9 +78,7 @@
 			  value: "16",
 			}
 		],
-        toTimes: [],
-        selectLine: null,
-        sendTimeObj:null,
+
       }
     },
 
@@ -124,7 +100,7 @@
 
         if (!this.formData.toTime) {
           uni.showToast({
-            title: "请选择取货日期",
+            title: "请选择就诊日期",
             icon: "none"
           });
           return;
@@ -145,7 +121,7 @@
         return db.collection("order").add(params).then((res) => {
           uni.showToast({
             icon: 'none',
-            title: '寄件成功'
+            title: '下单成功'
           })
         }).catch((err) => {
           uni.showModal({
