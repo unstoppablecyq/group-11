@@ -1,0 +1,22 @@
+
+server:
+  port: 5011
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/val1?serverTimezone=GMT%2B8&useSSL=false
+    username: root
+    password: 1234
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+# //mybatis-plus数据库连接池
+mybatis-plus:
+  global-config:
+    db-config:
+      id-type: auto
+  mapper-locations: classpath:mapper/demo/*Mapper.xml #Mapper路径
+  type-aliases-package: com.example.demo.entity  #连接的数据库实例
+
+logging:
+  level:
+    com.example.demo.mapper: trace

@@ -1,0 +1,28 @@
+
+
+
+远程连接centos
+root
+ROOTr00t
+
+
+宝塔：
+==================================================================
+外网面板地址: http://47.113.189.48:8888/0f0f3c8b
+内网面板地址: http://172.17.19.233:8888/0f0f3c8b
+username: qcik94tk
+password: 064cc7e2
+If you cannot access the panel,
+release the following panel port [8888] in the security group
+若无法访问面板，请检查防火墙/安全组是否有放行面板[8888]端口
+==================================================================
+Time consumed: 1 Minute!
+
+
+
+
+
+数据库名叫demo
+
+
+
